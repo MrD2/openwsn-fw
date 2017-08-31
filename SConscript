@@ -96,7 +96,7 @@ elif env['toolchain']=='newmspgcc':
     # compiler
     env.Replace(CC           = 'msp430-elf-gcc')
     # assembler
-    env.Append(ASFLAGS       = '-I/opt/msp430-toolchain/current/include')
+    env.Append(ASFLAGS       = '-I/opt/msp430-toolchain/msp430-elf/include/')
     env.Append(ASFLAGS       = '')
     # archiver
     env.Replace(AR           = 'msp430-elf-ar')
@@ -105,13 +105,13 @@ elif env['toolchain']=='newmspgcc':
     env.Append(RANLIBFLAGS   = '')
     # linker
     env.Replace(LINK         = 'msp430-elf-gcc')
-    env.Append(LINKFLAGS     = '-L/opt/msp430-toolchain/current/include')
+    env.Append(LINKFLAGS     = '-L/opt/msp430-toolchain/msp430-elf/lib/ldscripts/')
     env.Append(LINKFLAGS     = '-MMD')  #Preprocessor, only user header files
     env.Append(LINKFLAGS     = '')
     # misc
 
     # general options
-    env.Append(CCFLAGS       = '-I/opt/msp430-toolchain/current/include')
+    env.Append(CCFLAGS       = '-I/opt/msp430-toolchain/msp430-elf/include/')
     env.Append(CCFLAGS       = '-Wunknown-pragmas')
     env.Append(CCFLAGS       = '-fno-force-addr')
     env.Append(CCFLAGS       = '-finline-limit=1')
