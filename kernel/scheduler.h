@@ -11,7 +11,8 @@
 #include "opendefs.h"
 
 //=========================== define ==========================================
-
+// THIS DEFINES PRIORTIES USED WITH OPENOS
+/*
 typedef enum {
    TASKPRIO_NONE                  = 0x00,
    // tasks trigger by radio
@@ -30,28 +31,33 @@ typedef enum {
    TASKPRIO_SNIFFER               = 0x0b,
    TASKPRIO_MAX                   = 0x0c,
 } task_prio_t;
-
+*/
 
 // THIS DEFINES PRIORTIES USED WITH FREERTOS
+typedef enum {
+   TASKPRIO_NONE                  = 0x00,
+   // tasks trigger by the stack rx
+   TASKPRIO_STACK_LOWMAC          = 0x01,
+   TASKPRIO_STACK_HIGHMAC         = 0x02,
+   TASKPRIO_STACK_6TOP            = 0x03,
+   TASKPRIO_STACK_IP              = 0x04,
+   TASKPRIO_STACK_ROUTING         = 0x05,
+   TASKPRIO_STACK_TRANSPORT       = 0x06,
 
-// tasks trigger by the stack rx
-#define TASKPRIO_STACK_LOWMAC (task_prio_t) 0x01
-#define TASKPRIO_STACK_HIGHMAC (task_prio_t) 0x02
-#define TASKPRIO_STACK_6TOP (task_prio_t) 0x03
-#define TASKPRIO_STACK_IP (task_prio_t) 0x04
-#define TASKPRIO_STACK_ROUTING (task_prio_t) 0x05
-#define TASKPRIO_STACK_TRANSPORT (task_prio_t) 0x06
-// tasks going up the stack - sendone and timers
-#define TASKPRIO_SENDDONE_TIMERS_MAC (task_prio_t) 0x07
-#define TASKPRIO_SENDDONE_TIMERS_6TOP (task_prio_t) 0x08
-#define TASKPRIO_SENDDONE_TIMERS_IP (task_prio_t) 0x09
-#define TASKPRIO_SENDDONE_TIMERS_ROUTING (task_prio_t) 0x0A
-#define TASKPRIO_SENDDONE_TIMERS_TRANSPORT (task_prio_t) 0x0
-//app tasks - down the stack
-#define TASKPRIO_APP_HIGH (task_prio_t) 0x0C
-#define TASKPRIO_APP_MED (task_prio_t) 0x0D
-#define TASKPRIO_APP_LOW (task_prio_t) 0x0E
+   // tasks going up the stack - sendone and timers
+   TASKPRIO_SENDDONE_TIMERS_MAC          = 0x07,
+   TASKPRIO_SENDDONE_TIMERS_6TOP         = 0x08,
+   TASKPRIO_SENDDONE_TIMERS_IP           = 0x09,
+   TASKPRIO_SENDDONE_TIMERS_ROUTING      = 0x0a,
+   TASKPRIO_SENDDONE_TIMERS_TRANSPORT    = 0x0b,
 
+   //app tasks - down the stack
+   TASKPRIO_APP_HIGH              = 0x0c,
+   TASKPRIO_APP_MED               = 0x0d,
+   TASKPRIO_APP_LOW               = 0x0e,
+
+   TASKPRIO_MAX                   = 0x0f,
+} task_prio_t;
 
 #define TASK_LIST_DEPTH           10
 
