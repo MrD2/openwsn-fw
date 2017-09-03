@@ -8,10 +8,10 @@ FREERTOS_VERSION = 'FreeRTOSV8.2.2'
 
 target    =  'libkernel'
 
-if localEnv['board'] not in ['openmote-cc2538']:
+if localEnv['board'] not in ['openmote-cc2538','MoteISTv5']:
 
     raise SystemError('kernel {0} can not be used for board {1}'.format(localEnv['kernel'],localEnv['board']))
-	
+
 else:
 
     if localEnv['toolchain']=='armgcc':
@@ -23,7 +23,7 @@ else:
             os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','MemMang','heap_1.c'),
             os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','GCC','ARM_CM3','port.c'),
        ]
-           
+
        localEnv.Append(
            CPPPATH =  [
                os.path.join('.'),
@@ -31,7 +31,7 @@ else:
                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','GCC','ARM_CM3'),
            ],
        )
-    
+
     elif localEnv['toolchain']=='mspgcc':
        sources_c = [
            'scheduler.c',
@@ -41,7 +41,7 @@ else:
             os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','MemMang','heap_1.c'),
             os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','GCC','MSP430F449','port.c'),
        ]
-           
+
        localEnv.Append(
            CPPPATH =  [
                os.path.join('.'),
@@ -49,6 +49,35 @@ else:
                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','GCC','MSP430F449'),
            ],
        )
+
+     #MoteISTv5 board WITH MSP430X mcu
+    ###############################
+    elif localEnv['board'] == 'MoteISTv5':
+        if localEnv['toolchain']=='newmspgcc':
+           sources_c = [
+               'scheduler.c',
+                #os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','croutine.c'),
+                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','tasks.c'),
+                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','queue.c'),
+                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','list.c'),
+                #os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','timers.c'),
+                #os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','event_groups.c'),
+                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','MemMang','heap_2.c'),
+                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','GCC','MSP430X','port.c'),
+                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','GCC','MSP430X','portext.S'),
+                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','GCC','MSP430X','hook.c'),
+           ]
+
+           localEnv.Append(
+               CPPPATH =  [
+                   os.path.join('.'), #Este acho que ta mal (porque nao ha .h presente aqui)
+                   os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','include'),
+                   os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','GCC','MSP430X'),
+               ],
+        )
+
+        else:
+            raise SystemError('toolchain {0} not supported for board {1}'.format(localEnv['toolchain'],localEnv['board']))
 
     elif localEnv['toolchain']=='iar':
        #TODO -- how to discriminate between arm and msp430?
@@ -60,7 +89,7 @@ else:
             os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','MemMang','heap_1.c'),
             os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','IAR','MSP430','port.c'),
        ]
-           
+
        localEnv.Append(
            CPPPATH =  [
                os.path.join('.'),
@@ -68,8 +97,8 @@ else:
                os.path.join(FREERTOS_VERSION,'FreeRTOS','Source','portable','IAR','MSP430'),
            ],
        )
-    
-    
+
+
     libkernel = localEnv.Library(
         target = target,
         source = sources_c,
