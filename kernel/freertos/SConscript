@@ -4,16 +4,16 @@ Import('env')
 
 localEnv = env.Clone()
 
-FREERTOS_VERSION = 'FreeRTOSV8.1.2'
+FREERTOS_VERSION = 'FreeRTOSV8.2.2'
 
 target    =  'libkernel'
 
 if localEnv['board'] not in ['openmote-cc2538']:
-    
-    raise SystemError('kernel {0} can not be used for board {1}'.format(localEnv['kernel'],localEnv['board']))		
+
+    raise SystemError('kernel {0} can not be used for board {1}'.format(localEnv['kernel'],localEnv['board']))
 	
 else:
-    
+
     if localEnv['toolchain']=='armgcc':
        sources_c = [
            'scheduler.c',
