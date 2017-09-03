@@ -59,6 +59,17 @@ typedef enum {
    TASKPRIO_MAX                   = 0x0f,
 } task_prio_t;
 
+//OPENOS to FREERTOS kernel task_prio_t name conversion
+#define TASKPRIO_SIXTOP_NOTIF_TXDONE  ((task_prio_t) TASKPRIO_SENDDONE_TIMERS_6TOP)
+#define TASKPRIO_SIXTOP_NOTIF_RX      ((task_prio_t) TASKPRIO_STACK_6TOP)
+#define TASKPRIO_SF0                  ((task_prio_t) TASKPRIO_SENDDONE_TIMERS_TRANSPORT)
+#define TASKPRIO_SIXTOP_TIMEOUT       ((task_prio_t) TASKPRIO_SENDDONE_TIMERS_6TOP)
+#define TASKPRIO_SIXTOP               ((task_prio_t) TASKPRIO_STACK_6TOP)
+#define TASKPRIO_RPL                  ((task_prio_t) TASKPRIO_SENDDONE_TIMERS_ROUTING)
+#define TASKPRIO_TCP_TIMEOUT          ((task_prio_t) TASKPRIO_SENDDONE_TIMERS_TRANSPORT)
+#define TASKPRIO_COAP                 ((task_prio_t) TASKPRIO_SENDDONE_TIMERS_TRANSPORT)
+#define TASKPRIO_BUTTON               ((task_prio_t) TASKPRIO_APP_HIGH)
+
 #define TASK_LIST_DEPTH           10
 
 //=========================== typedef =========================================
