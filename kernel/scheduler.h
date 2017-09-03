@@ -51,7 +51,7 @@ typedef enum {
 #define TASKPRIO_BUTTON               ((task_prio_t) TASKPRIO_APP_HIGH)
 
 
-#else /* We are compiling with openwsn*/
+#else /* We are compiling with openos*/
 
 
 typedef enum {
